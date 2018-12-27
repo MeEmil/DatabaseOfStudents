@@ -3,6 +3,8 @@
 
 //From structsfile.c
 struct Person;
+void structmain();
+
 
 //From Writers.c
 void Writer();
