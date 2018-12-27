@@ -53,6 +53,8 @@ int main()
 	//person1.first_name[0] = "very";
 	printf("Name: %s Age: %d Gender: %c", person1.first_name, person1.age, person1.gender);
 	printf("p[15].age = %d", p[15].age);
+
+	structmain();
 	getchar();
 }
 
