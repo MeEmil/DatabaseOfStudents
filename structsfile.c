@@ -7,6 +7,7 @@ void Text(){
 
 
 typedef struct Person{
+	char *personal_number;
 	char *name;
 	char gender;
 	char *study_program;
@@ -36,7 +37,7 @@ void print_list(Person_t * head)
 
 
 
-void modify(Person_t ** head, int val, int n)
+void modify(Person_t ** head, int index, char *name, char gender, char *study_program, int age, char *email, char *personal_number)
 {
 //modify first value
 	//head->next->val = val;
@@ -46,12 +47,15 @@ void modify(Person_t ** head, int val, int n)
 	Person_t * current = *head;
 	int i;
 
-	for (i = 0; i < n-1; i++) {
-        if (current->next == NULL) {
-        }
+	for (i = 0; i < index; i++) {
         current = current->next;
     }
-    current->val = val;
+    current->name = name;
+    current->gender = gender;
+    current->study_program = study_program;
+    current->age = age;
+    current->email = email;
+    current->personal_number = personal_number;
 }
 
 void pushToFirst(Person_t ** head, int val) {
@@ -77,29 +81,6 @@ int pop(Person_t ** head) {
     *head = next_Person;
 
     return retval;
-}
-
-int remove_last(Person_t * head) {
-    int retval = 0;
-    /* if there is only one item in the list, remove it */
-    if (head->next == NULL) {
-        retval = head->val;
-        free(head);
-        return retval;
-    }
-
-    /* get to the second to last Person in the list */
-    Person_t * current = head;
-    while (current->next->next != NULL) {
-        current = current->next;
-    }
-
-    /* now current points to the second to last item of the list, so let's remove current->next */
-    retval = current->next->val;
-    free(current->next);
-    current->next = NULL;
-    return retval;
-
 }
 
 int remove_by_index(Person_t ** head, int n) {
@@ -134,7 +115,7 @@ char *returnName(Person_t ** head, int index)
 	char *retval;
 	Person_t * current = *head;
 
-	for (i = 0; i < index-1; i++) {
+	for (i = 0; i < index; i++) {
 	    if (current->next == NULL) {
 	        return 0;
 	    }
@@ -152,7 +133,7 @@ char returnGender(Person_t ** head, int index)
 	char retval;
 	Person_t * current = *head;
 
-	for (i = 0; i < index-1; i++) {
+	for (i = 0; i < index; i++) {
 	    if (current->next == NULL) {
 	        return 0;
 	    }
@@ -170,7 +151,7 @@ char *returnStudy_program(Person_t ** head, int index)
 	char *retval;
 	Person_t * current = *head;
 
-	for (i = 0; i < index-1; i++) {
+	for (i = 0; i < index; i++) {
 	    if (current->next == NULL) {
 	        return 0;
 	    }
@@ -188,7 +169,7 @@ int returnAge(Person_t ** head, int index)
 	int retval;
 	Person_t * current = *head;
 
-	for (i = 0; i < index-1; i++) {
+	for (i = 0; i < index; i++) {
 	    if (current->next == NULL) {
 	        return 0;
 	    }
@@ -206,7 +187,7 @@ char *returnEmail(Person_t ** head, int index)
 	char *retval;
 	Person_t * current = *head;
 
-	for (i = 0; i < index-1; i++) {
+	for (i = 0; i < index; i++) {
 	    if (current->next == NULL) {
 	        return 0;
 	    }
@@ -214,6 +195,24 @@ char *returnEmail(Person_t ** head, int index)
 	}
 
 	retval = current->email;
+
+	return retval;
+}
+
+char *returnPersonal_Number(Person_t ** head, int index)
+{
+	int i = 0;
+	char *retval;
+	Person_t * current = *head;
+
+	for (i = 0; i < index; i++) {
+	    if (current->next == NULL) {
+	        return 0;
+	    }
+	    current = current->next;
+	}
+
+	retval = current->personal_number;
 
 	return retval;
 }
@@ -242,7 +241,7 @@ int returnWithValues(Person_t ** head, int vald)
 	return counter;
 }
 
-void push(Person_t * head, int val, char *name, char gender, char *study_program, int age, char *email)
+void push(Person_t * head, char *name, char gender, char *study_program, int age, char *email, char *personal_number)
 {
     Person_t * current = head;
     while (current->next != NULL) {
@@ -256,7 +255,7 @@ void push(Person_t * head, int val, char *name, char gender, char *study_program
     current->next->study_program = study_program;
     current->next->age = age;
     current->next->email = email;
-    current->next->val = val;
+    current->next->personal_number = personal_number;
     current->next->next = NULL;
 }
 
@@ -270,21 +269,28 @@ int structmain()
 	head->next = malloc(sizeof(Person_t));
 	head->next->val = 9;
 	head->next->next = NULL;
-	push(head, 3, "Emil", 'm', "sciense", 19, "example@example.com");
-	push(head, 5, "Love", 'm', "sciense", 19, "example@example.com");
-	push(head,7, "Hanna", 'm', "sciense", 19, "example@example.com");
+	push(head, "Emil", 'm', "sciense", 19, "example@example.com", "9934638534");
+	push(head, "Love", 'm', "sciense", 19, "example@example.com", "0000000234");
+	push(head, "Hanna", 'm', "sciense", 19, "example@example.com", "3493462346");
 	printf("\nFirst value: %d", head->val);
 	printf("\nSecond value: %d", head->next->val);
 	printf("\nThird value: %d", head->next->next->val);
-	printf("\nFacts: %s,%c,%s,%d,%s", returnName(&head, 3), returnGender(&head, 3), returnStudy_program(&head, 3), returnAge(&head, 3), returnEmail(&head, 3));
+	//remove_by_index(&head, 3);
+	//modify(&head, 22, 3);
+	modify(&head, 3, "Emil", 'm', "sciense", 19, "example@example.com", "9934638534");
+	printf("\n%d",returnAge(&head,2));
+	printf("\n%d",returnAge(&head,3));
+	printf("\n%d",returnAge(&head,4));
+	printf("\nFacts: %s,%c,%s,%d,%s,%s", returnName(&head, 3), returnGender(&head, 3), returnStudy_program(&head, 3), returnAge(&head, 3), returnEmail(&head, 3), returnPersonal_Number(&head, 3));
+	printf("\nFacts: %s,%c,%s,%d,%s,%s", returnName(&head, 4), returnGender(&head, 4), returnStudy_program(&head, 4), returnAge(&head, 4), returnEmail(&head, 4), returnPersonal_Number(&head, 4));
 	printf("\nFourth value: %d", head->next->next->next->val);
 	printf("\nNumber of 7s are: %d", returnWithValues(&head,7));
 
 	printf("The first value is: %d\n", head->val);
 	pushToFirst(&head, 9);
 	pop(&head);
-	modify(&head, 9,1);
-	modify(&head, 3,1);
+	//modify(&head, 9,1);
+	//modify(&head, 3,1);
 
 	char *name;
 	char gender;
@@ -300,4 +306,3 @@ int structmain()
 
 	return 1;
 }
-
