@@ -22,6 +22,9 @@ typedef struct node {
 
 int main()
 {
+
+
+
 	int kwjefnd = 0;
 	node_t * head = NULL;
 	head = malloc(sizeof(node_t));
