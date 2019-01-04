@@ -2,12 +2,6 @@
 #include <stdlib.h>
 #include "FOO.h"
 
-struct Person
-{
-	int age;
-	char * first_name; 
-	char gender;
-};
 
 typedef struct
 {
@@ -22,7 +16,6 @@ typedef struct node {
 
 int main()
 {
-
 
 
 	int kwjefnd = 0;
@@ -48,15 +41,7 @@ int main()
 	char *name = "MEllamo";
 	name = "TEllamos";
 	Text();
-	struct Person person1, person2, p[20];
-	person1.age = 16;
-	person1.gender = 'm';
-	person1.first_name = "Emil";
-	p[15].age = 77;
-	//person1.first_name[0] = "very";
-	printf("Name: %s Age: %d Gender: %c", person1.first_name, person1.age, person1.gender);
-	printf("p[15].age = %d", p[15].age);
-
+	saver();
 	structmain();
 	getchar();
 }

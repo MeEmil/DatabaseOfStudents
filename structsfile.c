@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "FOO.h"
 void Text(){
 	printf("IT Phone Home!!");
 }
@@ -259,10 +260,12 @@ void push(Person_t * head, char *name, char gender, char *study_program, int age
     current->next->next = NULL;
 }
 
+	Person_t * head = NULL;
+
 int structmain()
 {
 	//Second column of code
-	Person_t * head = NULL;
+
 	head = malloc(sizeof(Person_t));
 	head->val = 7;
 	head->next = NULL;

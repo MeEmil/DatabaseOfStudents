@@ -2,14 +2,15 @@
 #define FOO_H_
 
 //From structsfile.c
-struct Person;
-void structmain();
-
+int structmain();
 
 //From Writers.c
 void Writer();
 
 //From text.c
 void Text();
+
+//From saver.c
+int saver();
 
 #endif // FOO_H_
