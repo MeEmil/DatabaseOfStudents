@@ -1,6 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int add(FILE *tmp)
+{
+    char *personal_number;
+    char *name;
+    char gender;
+    char *study_program;
+    int age;
+    char *email;
+
+    personal_number = "9904043625";
+    name = "Emil";
+    gender = 'm';
+    study_program = "sciense";
+    age = 19;
+    email = "example@example.org";
+    
+    fprintf(tmp,"%s %s %c %s %d %s\n", personal_number, name, gender, study_program, age, email);
+    printf("XXXX");
+    return 0;
+}
+
 int saver()
 {
     int ch;
@@ -51,7 +72,29 @@ int saver()
     //}
 //fprintf(tmp, "%s %s %d %d %d %d %d\n", "hi", "the re", a1, a2, a3, a4, a5);
         //fprintf(tmp, "%d %d %d\n",a4, a3, a5);
-    fscanf(tmp, "%s %s %d %d %d %d %d\n", &getsstring, &get2string, &n1, &n2, &n3, &n4, &n5);
+    //fscanf(tmp, "%s %s %d %d %d %d %d\n", &getsstring, &get2string, &n1, &n2, &n3, &n4, &n5);
+
+    char *personal_number;
+    char *name;
+    char gender;
+    char *study_program;
+    int age;
+    char *email;
+
+    personal_number = "9904043625";
+    name = "Emil";
+    gender = 'm';
+    study_program = "sciense";
+    age = 19;
+    email = "example@example.org";
+
+    while (fscanf(in, "%s %d %d %d %d %d\n", &getsstring, &n1, &n2, &n3, &n4, &n5) > 0) {
+        printf("%s %d %d %d %d %d\n", &getsstring, n1, n2, n3, n4, n5);
+        fprintf(tmp, "%s %d %d %d %d %d\n", &getsstring, n1, n2, n3, n4, n5);
+    }
+
+    fprintf(tmp,"%s %s %c %s %d %s\n", personal_number, name, gender, study_program, age, email);
+    add(tmp);
     //fscanf(tmp, "%d %d %d\n", &m1, &m2, &m3);
     //printf("\nHello:%c %d %d %d",getsstring,n1,n2,n3);
     //printf("\nHello:%d %d %d",m1,m2,m3);
@@ -66,3 +109,4 @@ int saver()
     printf("\n\n");
     return 0;
 }
+

@@ -37,7 +37,7 @@ void print_list(Person_t * head)
 }
 
 
-
+//Send in arguments
 void modify(Person_t ** head, int index, char *name, char gender, char *study_program, int age, char *email, char *personal_number)
 {
 //modify first value
