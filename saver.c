@@ -1,24 +1,39 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "FOO.h"
 
-int add(FILE *tmp)
+int add(FILE *tmp, char *personal_number, char *name, char gender, char *study_program, int age, char *email)
 {
-    char *personal_number;
-    char *name;
-    char gender;
-    char *study_program;
-    int age;
-    char *email;
-
-    personal_number = "9904043625";
-    name = "Emil";
-    gender = 'm';
-    study_program = "sciense";
-    age = 19;
-    email = "example@example.org";
-    
     fprintf(tmp,"%s %s %c %s %d %s\n", personal_number, name, gender, study_program, age, email);
-    printf("XXXX");
+    printf("XXXX %s", personal_number);
+    return 0;
+}
+
+int openi()
+{
+    FILE *file = fopen("C:/Users/Emil/Desktop/Github/tempt.txt", "rb");
+
+    char *string;
+    fseek(file, 0, SEEK_SET);
+    fread(string, 4,1,file); 
+    printf("\n%s", string);
+    fread(string, 14,1,file); 
+    printf("\n%s", string);
+    if(string=="hello"){
+        printf("IT PRINTS");
+    }
+    fclose(file);
+    return 0;
+}
+
+int save()
+{
+    char string1[6];
+    FILE *file = fopen("C:/Users/Emil/Desktop/Github/tempt.txt", "wb");
+    char *string = "helloqwertyuiop";
+    fwrite("size",4,1,file);
+    fwrite(string,sizeof(string)+1,1,file);
+    fclose(file);
     return 0;
 }
 
@@ -94,13 +109,12 @@ int saver()
     }
 
     fprintf(tmp,"%s %s %c %s %d %s\n", personal_number, name, gender, study_program, age, email);
-    add(tmp);
+    add(tmp, "9904043625", "Emil", 'm', "sciense", 19, "example@example.org");
     //fscanf(tmp, "%d %d %d\n", &m1, &m2, &m3);
     //printf("\nHello:%c %d %d %d",getsstring,n1,n2,n3);
     //printf("\nHello:%d %d %d",m1,m2,m3);
     printf("!!!!: \n %s",&getsstring);
-    printf("!!!!:\n %s",&get2string);
-  
+    
     fclose(in);
     fclose(tmp);
 
@@ -110,3 +124,16 @@ int saver()
     return 0;
 }
 
+void open_file(){
+    const char temp_file[] = "C:/Users/Emil/Desktop/Github/temp.txt";
+    FILE *tmp = fopen(temp_file, "w");
+    if (tmp == NULL) {
+        printf("Could not open test2.txt!\n");
+        system("pause");
+        exit(1);
+    }
+}
+
+void close_file(FILE *file){
+    fclose(file);
+}

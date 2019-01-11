@@ -6,19 +6,6 @@ void Text(){
 }
 
 
-
-typedef struct Person{
-	char *personal_number;
-	char *name;
-	char gender;
-	char *study_program;
-	int age;
-	char *email;
-	struct Person * next;
-	int val;
-} Person_t;
-
-
 //typedef struct Person
 //{
 //   	int val;
@@ -38,7 +25,7 @@ void print_list(Person_t * head)
 
 
 //Send in arguments
-void modify(Person_t ** head, int index, char *name, char gender, char *study_program, int age, char *email, char *personal_number)
+void modify(Person_t ** head, int index, char *name, char *gender, char *study_program, int age, char *email, char *personal_number)
 {
 //modify first value
 	//head->next->val = val;
@@ -54,7 +41,7 @@ void modify(Person_t ** head, int index, char *name, char gender, char *study_pr
     current->name = name;
     current->gender = gender;
     current->study_program = study_program;
-    current->age = age;
+    current->age = &age;
     current->email = email;
     current->personal_number = personal_number;
 }
@@ -128,10 +115,10 @@ char *returnName(Person_t ** head, int index)
 	return retval;
 }
 
-char returnGender(Person_t ** head, int index)
+char *returnGender(Person_t ** head, int index)
 {
 	int i = 0;
-	char retval;
+	char *retval;
 	Person_t * current = *head;
 
 	for (i = 0; i < index; i++) {
@@ -167,7 +154,7 @@ char *returnStudy_program(Person_t ** head, int index)
 int returnAge(Person_t ** head, int index)
 {
 	int i = 0;
-	int retval;
+	int *retval;
 	Person_t * current = *head;
 
 	for (i = 0; i < index; i++) {
@@ -179,7 +166,7 @@ int returnAge(Person_t ** head, int index)
 
 	retval = current->age;
 
-	return retval;
+	return *retval;
 }
 
 char *returnEmail(Person_t ** head, int index)
@@ -242,22 +229,48 @@ int returnWithValues(Person_t ** head, int vald)
 	return counter;
 }
 
-void push(Person_t * head, char *name, char gender, char *study_program, int age, char *email, char *personal_number)
+void pushNext(Person_t * head, char *name, char *gender, char *study_program, int *age, char *email, char *personal_number)
 {
-    Person_t * current = head;
+	Person_t * current = head;
     while (current->next != NULL) {
+    	printf("CHANGED TO NEXT!!!");
         current = current->next;
     }
 
-    /* now we can add a new variable */
     current->next = malloc(sizeof(Person_t));
-    current->next->name = name;
-    current->next->gender = gender;
-    current->next->study_program = study_program;
-    current->next->age = age;
-    current->next->email = email;
-    current->next->personal_number = personal_number;
+    current->name = name;
+    printf("%s", current->name);
+    current->gender = gender;
+    printf("\nHE");
+    current->study_program = study_program;
+    printf("\nStudy_program: Check");
+    current->age = *age;
+    printf("\nAge: Check:%d", current->age);
+    current->email = email;
+    printf("\nEmail: Check");
+    current->personal_number = personal_number;
+    printf("\npersonal_number: Check");
     current->next->next = NULL;
+    printf("\nnext: Check");
+}
+
+void push(Person_t * head, char *name, char *gender, char *study_program, int *age, char *email, char *personal_number)
+{
+    /* now we can add a new variable */
+    head->name = name;
+    printf("%s", head->name);
+    head->gender = gender;
+    head->study_program = study_program;
+    printf("\nStudy_program: Check");
+    head->age = *age;
+    printf("\nAge: Check:%d", head->age);
+    head->email = email;
+    printf("\nEmail: Check");
+    head->personal_number = personal_number;
+    printf("\npersonal_number: Check");
+    head->next = malloc(sizeof(Person_t));
+    head->next->next=NULL;
+    printf("\nnext: Check");
 }
 
 	Person_t * head = NULL;
@@ -266,27 +279,10 @@ int structmain()
 {
 	//Second column of code
 
-	head = malloc(sizeof(Person_t));
-	head->val = 7;
-	head->next = NULL;
-	head->next = malloc(sizeof(Person_t));
-	head->next->val = 9;
-	head->next->next = NULL;
-	push(head, "Emil", 'm', "sciense", 19, "example@example.com", "9934638534");
-	push(head, "Love", 'm', "sciense", 19, "example@example.com", "0000000234");
-	push(head, "Hanna", 'm', "sciense", 19, "example@example.com", "3493462346");
-	printf("\nFirst value: %d", head->val);
-	printf("\nSecond value: %d", head->next->val);
-	printf("\nThird value: %d", head->next->next->val);
 	//remove_by_index(&head, 3);
 	//modify(&head, 22, 3);
-	modify(&head, 3, "Emil", 'm', "sciense", 19, "example@example.com", "9934638534");
-	printf("\n%d",returnAge(&head,2));
-	printf("\n%d",returnAge(&head,3));
-	printf("\n%d",returnAge(&head,4));
-	printf("\nFacts: %s,%c,%s,%d,%s,%s", returnName(&head, 3), returnGender(&head, 3), returnStudy_program(&head, 3), returnAge(&head, 3), returnEmail(&head, 3), returnPersonal_Number(&head, 3));
-	printf("\nFacts: %s,%c,%s,%d,%s,%s", returnName(&head, 4), returnGender(&head, 4), returnStudy_program(&head, 4), returnAge(&head, 4), returnEmail(&head, 4), returnPersonal_Number(&head, 4));
-	printf("\nFourth value: %d", head->next->next->next->val);
+	//printf("\n%d",returnAge(&head,2));
+	//printf("\nFacts: %s,%c,%s,%d,%s,%s", returnName(&head, 3), returnGender(&head, 3), returnStudy_program(&head, 3), returnAge(&head, 3), returnEmail(&head, 3), returnPersonal_Number(&head, 3));
 	printf("\nNumber of 7s are: %d", returnWithValues(&head,7));
 
 	printf("The first value is: %d\n", head->val);
@@ -295,16 +291,8 @@ int structmain()
 	//modify(&head, 9,1);
 	//modify(&head, 3,1);
 
-	char *name;
-	char gender;
-	char *study_program;
-	int age;
-	char *email;
-	struct Person * next;
-	int val;
 	//Person_t * head, int val, char *name, char gender, char *study_program, int age, char *email
 
-	printf("HItehere");
 	print_list(head);
 
 	return 1;
